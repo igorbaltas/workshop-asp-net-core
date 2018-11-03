@@ -9,11 +9,11 @@ using HelpDeskMvc.Models;
 
 namespace HelpDeskMvc.Controllers
 {
-    public class DepartamentoesController : Controller
+    public class DepartamentosController : Controller
     {
         private readonly HelpDeskMvcContext _context;
 
-        public DepartamentoesController(HelpDeskMvcContext context)
+        public DepartamentosController(HelpDeskMvcContext context)
         {
             _context = context;
         }

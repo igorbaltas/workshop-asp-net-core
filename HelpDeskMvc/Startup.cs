@@ -26,7 +26,8 @@ namespace HelpDeskMvc
             services.AddMvc();
 
             services.AddDbContext<HelpDeskMvcContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("HelpDeskMvcContext")));
+                    options.UseMySql(Configuration.GetConnectionString("HelpDeskMvcContext"), builder =>
+                    builder.MigrationsAssembly("HelpDeskMvc")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

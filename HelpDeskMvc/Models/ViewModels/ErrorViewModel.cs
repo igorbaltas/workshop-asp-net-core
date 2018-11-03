@@ -1,6 +1,6 @@
 using System;
 
-namespace HelpDeskMvc.Models
+namespace HelpDeskMvc.Models.ViewModels
 {
     public class ErrorViewModel
     {

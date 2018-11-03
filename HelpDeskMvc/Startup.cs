@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using HelpDeskMvc.Models;
 
 namespace HelpDeskMvc
 {
@@ -22,6 +24,9 @@ namespace HelpDeskMvc
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddDbContext<HelpDeskMvcContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("HelpDeskMvcContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

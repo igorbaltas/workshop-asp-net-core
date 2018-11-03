@@ -3,14 +3,16 @@ using System;
 using HelpDeskMvc.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HelpDeskMvc.Migrations
 {
     [DbContext(typeof(HelpDeskMvcContext))]
-    partial class HelpDeskMvcContextModelSnapshot : ModelSnapshot
+    [Migration("20181103163056_OtherEntities")]
+    partial class OtherEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,11 +34,7 @@ namespace HelpDeskMvc.Migrations
 
                     b.Property<int>("status");
 
-                    b.Property<int?>("usuariosidUsuario");
-
                     b.HasKey("idChamado");
-
-                    b.HasIndex("usuariosidUsuario");
 
                     b.ToTable("Chamado");
                 });
@@ -77,17 +75,10 @@ namespace HelpDeskMvc.Migrations
                     b.ToTable("Usuario");
                 });
 
-            modelBuilder.Entity("HelpDeskMvc.Models.Chamado", b =>
-                {
-                    b.HasOne("HelpDeskMvc.Models.Usuario", "usuarios")
-                        .WithMany()
-                        .HasForeignKey("usuariosidUsuario");
-                });
-
             modelBuilder.Entity("HelpDeskMvc.Models.Usuario", b =>
                 {
                     b.HasOne("HelpDeskMvc.Models.Departamento", "departamento")
-                        .WithMany("Listusuario")
+                        .WithMany("usuarios")
                         .HasForeignKey("departamentoidDpto");
                 });
 #pragma warning restore 612, 618

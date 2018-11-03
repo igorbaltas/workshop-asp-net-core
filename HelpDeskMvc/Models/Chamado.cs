@@ -17,6 +17,7 @@ namespace HelpDeskMvc.Models
         public DateTime dataEncerramento { get; set; }
         public string solucaoChamado { get; set; }
         public Usuario usuarios { get; set; }
+        public Servico servicos { get; set; }
 
 
 
@@ -25,7 +26,7 @@ namespace HelpDeskMvc.Models
 
         }
 
-        public Chamado(int idChamado, ChamadoStatus status, string descricaoChamado, DateTime dataAbertura, DateTime dataEncerramento, string solucaoChamado, Usuario usuarios)
+        public Chamado(int idChamado, ChamadoStatus status, string descricaoChamado, DateTime dataAbertura, DateTime dataEncerramento, string solucaoChamado, Usuario usuarios, Servico servicos)
         {
             this.idChamado = idChamado;
             this.status = status;
@@ -34,6 +35,7 @@ namespace HelpDeskMvc.Models
             this.dataEncerramento = dataEncerramento;
             this.solucaoChamado = solucaoChamado;
             this.usuarios = usuarios;
+            this.servicos = servicos;
         }
     }
 }

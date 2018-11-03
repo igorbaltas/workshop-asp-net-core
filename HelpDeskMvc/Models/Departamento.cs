@@ -11,8 +11,9 @@ namespace HelpDeskMvc.Models
     {
         [Display(Name = "ID"), Key]
         public int idDpto { get; set; }
+        [Display(Name = "Departamentos")]
         public string dsDpto { get; set; }
-        public ICollection<Usuario> Listusuario { get; set; } = new List<Usuario>();
+        public ICollection<Usuario> ListUsuarios { get; set; } = new List<Usuario>();
 
         public Departamento()
         {
@@ -27,7 +28,7 @@ namespace HelpDeskMvc.Models
 
         public void AddUsuario(Usuario usuario)
         {
-            Listusuario.Add(usuario);
+            ListUsuarios.Add(usuario);
         }
 
        

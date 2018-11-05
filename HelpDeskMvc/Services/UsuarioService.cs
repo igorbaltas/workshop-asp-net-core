@@ -17,33 +17,34 @@ namespace HelpDeskMvc.Services
             _context = context;
         }
 
-        public List<Usuario> ListarUsuarios()
+        public async Task<List<Usuario>> ListarUsuariosAsync()
         {
-            return _context.Usuario.ToList();
+            return await _context.Usuario.ToListAsync();
         }
 
-        public void InserirUsuario(Usuario usuario)
+        public async Task InserirUsuarioAsync(Usuario usuario)
         {
             usuario.situacaoUsuario = ("Ativo");
             _context.Add(usuario);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public Usuario PesquisarId(int id)
+        public async Task<Usuario> PesquisarIdAsync(int id)
         {
-            return _context.Usuario.Include(usuario => usuario.departamento).FirstOrDefault(usuario => usuario.idUsuario == id);
+            return await _context.Usuario.Include(usuario => usuario.departamento).FirstOrDefaultAsync(usuario => usuario.idUsuario == id);
         }
 
-        public void DeletarUsuario(int id)
+        public async Task DeletarUsuarioAsync(int id)
         {
-            var usuario = _context.Usuario.Find(id);
+            var usuario = await _context.Usuario.FindAsync(id);
             _context.Usuario.Remove(usuario);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(Usuario usuario)
+        public async Task UpdateAsync(Usuario usuario)
         {
-            if (!_context.Usuario.Any(x => x.idUsuario == usuario.idUsuario))
+            bool existe = await _context.Usuario.AnyAsync(x => x.idUsuario == usuario.idUsuario);
+            if (!existe)
             {
                 throw new NotFoundException("Id não encontrado!");
             }
@@ -51,7 +52,7 @@ namespace HelpDeskMvc.Services
             {
                 usuario.situacaoUsuario = ("Ativo");
                 _context.Update(usuario);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException e)
             {

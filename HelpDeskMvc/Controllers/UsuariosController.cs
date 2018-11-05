@@ -22,36 +22,42 @@ namespace HelpDeskMvc.Controllers
             _departamentoService = departamentoService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var list = _usuarioService.ListarUsuarios();
+            var list = await _usuarioService.ListarUsuariosAsync();
             return View(list);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            var departamentos = _departamentoService.ListarDepartamentos();
+            var departamentos = await _departamentoService.ListarDepartamentosAsync();
             var viewModel = new UsuarioFormViewModel { departamentos = departamentos };
             return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Usuario usuario)
+        public async Task<IActionResult> Create(Usuario usuario)
         {
-            _usuarioService.InserirUsuario(usuario);
+            if (!ModelState.IsValid)
+            {
+                var departamentos =  await _departamentoService.ListarDepartamentosAsync();
+                var viewModel = new UsuarioFormViewModel { usuario = usuario, departamentos = departamentos };
+                return View(viewModel);
+            }
+            await _usuarioService.InserirUsuarioAsync(usuario);
             return RedirectToAction(nameof(Index));
         }
 
 
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não fornecido"});
             }
 
-            var usuario = _usuarioService.PesquisarId(id.Value);
+            var usuario = await _usuarioService.PesquisarIdAsync(id.Value);
             if (usuario == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
@@ -61,35 +67,20 @@ namespace HelpDeskMvc.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id, Usuario usuario)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id != usuario.idUsuario)
-            {
-                return BadRequest();
-            }
-            try
-            {
-                _usuarioService.DeletarUsuario(id);
-                return RedirectToAction(nameof(Index));
-            }
-            catch (NotFoundException)
-            {
-                return NotFound();
-            }
-            catch (DbConcurrencyException)
-            {
-                return BadRequest();
-            }
+            await _usuarioService.DeletarUsuarioAsync(id);
+            return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não fornecido" });
             }
 
-            var usuario = _usuarioService.PesquisarId(id.Value);
+            var usuario = await _usuarioService.PesquisarIdAsync(id.Value);
             if (usuario == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
@@ -97,20 +88,20 @@ namespace HelpDeskMvc.Controllers
             return View(usuario);
         }
 
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não fornecido" });
             }
 
-            var usuario = _usuarioService.PesquisarId(id.Value);
+            var usuario = await _usuarioService.PesquisarIdAsync(id.Value);
             if (usuario == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
             }
 
-            List<Departamento> departamentos = _departamentoService.ListarDepartamentos();
+            List<Departamento> departamentos = await _departamentoService.ListarDepartamentosAsync();
             UsuarioFormViewModel viewModel = new UsuarioFormViewModel { usuario = usuario, departamentos = departamentos };
             return View(viewModel);
             ;
@@ -118,15 +109,21 @@ namespace HelpDeskMvc.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Usuario usuario)
+        public async Task<IActionResult> Edit(int id, Usuario usuario)
         {
-            if(id != usuario.idUsuario)
+            if (!ModelState.IsValid)
+            {
+                var departamentos = await _departamentoService.ListarDepartamentosAsync();
+                var viewModel = new UsuarioFormViewModel { usuario = usuario, departamentos = departamentos };
+                return View(viewModel);
+            }
+            if (id != usuario.idUsuario)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não corresponde" });
             }
             try
             { 
-            _usuarioService.Update(usuario);
+            await _usuarioService.UpdateAsync(usuario);
             return RedirectToAction(nameof(Index));
             }
             catch (ApplicationException e)

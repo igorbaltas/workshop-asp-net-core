@@ -10,17 +10,30 @@ namespace HelpDeskMvc.Models
     {
         [Display(Name = "ID"), Key]
         public int idUsuario { get; set; }
+
+        [Required(ErrorMessage = "{0} obrigatório")]
+        [StringLength (100, MinimumLength = 3, ErrorMessage = "{0} deve conter entre {2} e {1} caracteres")]
         [Display(Name = "Nome")]
         public string nomeUsuario { get; set; }
+
+        [Required(ErrorMessage = "{0} obrigatório")]
+        [StringLength(100, MinimumLength = 3, ErrorMessage = "{0} deve conter entre {2} e {1}")]
         [Display(Name = "Login")]
         public string loginUsuario { get; set; }
+
+        [Required(ErrorMessage = "{0} obrigatória")]
+        [StringLength(20, MinimumLength = 3, ErrorMessage = "{0} deve conter entre {2} e {1}")]
         [Display(Name = "Senha")]
         [DataType(DataType.Password)]
         public string senhaUsuario { get; set; }
+
         [Display(Name = "Situação")]
         public string situacaoUsuario { get; set; }
+
+        [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Perfil")]
         public string nvlAcesso { get; set; }
+
         [Display(Name = "Departamento")]
         public Departamento departamento  { get; set; }
         public int DepartamentoId { get; set; }

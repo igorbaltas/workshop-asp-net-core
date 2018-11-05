@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace HelpDeskMvc.Services
 {
@@ -15,9 +17,9 @@ namespace HelpDeskMvc.Services
             _context = context;
         }
 
-        public List<Departamento> ListarDepartamentos()
+        public async Task<List<Departamento>> ListarDepartamentosAsync()
         {
-            return _context.Departamento.OrderBy(x => x.dsDpto).ToList();
+            return await _context.Departamento.OrderBy(x => x.dsDpto).ToListAsync();
         }
     }
 }

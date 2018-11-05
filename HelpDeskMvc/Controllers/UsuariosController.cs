@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using HelpDeskMvc.Models;
 using HelpDeskMvc.Models.ViewModels;
 using HelpDeskMvc.Services.Exceptions;
+using System.Diagnostics;
 
 namespace HelpDeskMvc.Controllers
 {
@@ -47,36 +48,51 @@ namespace HelpDeskMvc.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não fornecido"});
             }
 
             var usuario = _usuarioService.PesquisarId(id.Value);
             if (usuario == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
             }
             return View(usuario);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(int id, Usuario usuario)
         {
-            _usuarioService.DeletarUsuario(id);
-            return RedirectToAction(nameof(Index));
+            if (id != usuario.idUsuario)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                _usuarioService.DeletarUsuario(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }
+            catch (DbConcurrencyException)
+            {
+                return BadRequest();
+            }
         }
 
         public IActionResult Details(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não fornecido" });
             }
 
             var usuario = _usuarioService.PesquisarId(id.Value);
             if (usuario == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
             }
             return View(usuario);
         }
@@ -85,13 +101,13 @@ namespace HelpDeskMvc.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não fornecido" });
             }
 
             var usuario = _usuarioService.PesquisarId(id.Value);
             if (usuario == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
             }
 
             List<Departamento> departamentos = _departamentoService.ListarDepartamentos();
@@ -106,21 +122,27 @@ namespace HelpDeskMvc.Controllers
         {
             if(id != usuario.idUsuario)
             {
-                return BadRequest();
+                return RedirectToAction(nameof(Error), new { message = "Id não corresponde" });
             }
             try
             { 
             _usuarioService.Update(usuario);
             return RedirectToAction(nameof(Index));
             }
-            catch (NotFoundException)
+            catch (ApplicationException e)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = e.Message });
             }
-            catch (DbConcurrencyException)
+        }
+
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
             {
-                return BadRequest();
-            }
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+            return View(viewModel);
         }
 
 

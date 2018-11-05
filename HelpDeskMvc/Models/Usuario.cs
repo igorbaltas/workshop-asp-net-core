@@ -15,7 +15,7 @@ namespace HelpDeskMvc.Models
         [Display(Name = "Login")]
         public string loginUsuario { get; set; }
         [Display(Name = "Senha")]
-       //[DataType(DataType.Password)]
+        [DataType(DataType.Password)]
         public string senhaUsuario { get; set; }
         [Display(Name = "Situação")]
         public string situacaoUsuario { get; set; }

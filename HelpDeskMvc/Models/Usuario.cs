@@ -21,6 +21,7 @@ namespace HelpDeskMvc.Models
         public string situacaoUsuario { get; set; }
         [Display(Name = "Perfil")]
         public string nvlAcesso { get; set; }
+        [Display(Name = "Departamento")]
         public Departamento departamento  { get; set; }
         public int DepartamentoId { get; set; }
         public ICollection<Chamado> Listchamados = new List<Chamado>();

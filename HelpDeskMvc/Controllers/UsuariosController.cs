@@ -64,5 +64,20 @@ namespace HelpDeskMvc.Controllers
             _usuarioService.DeletarUsuario(id);
             return RedirectToAction(nameof(Index));
         }
+
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var usuario = _usuarioService.PesquisarId(id.Value);
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+            return View(usuario);
+        }
     }
 }

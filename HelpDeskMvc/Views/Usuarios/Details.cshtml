@@ -1,0 +1,42 @@
+﻿@model HelpDeskMvc.Models.Usuario
+@{
+    ViewData["Title"] = "Detalhes";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <h4>Usuário</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nomeUsuario)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.nomeUsuario)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.loginUsuario)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.loginUsuario)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.nvlAcesso)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.nvlAcesso)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.departamento)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.departamento.dsDpto)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index" class="btn btn-warning">Voltar</a>
+    <a asp-action="Edit" asp-route-id="@Model.idUsuario" class="btn btn-default">Editar</a>
+</div>
+

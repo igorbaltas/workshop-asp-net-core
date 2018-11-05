@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace HelpDeskMvc.Services
 {
@@ -29,7 +30,7 @@ namespace HelpDeskMvc.Services
 
         public Usuario PesquisarId(int id)
         {
-            return _context.Usuario.FirstOrDefault(usuario => usuario.idUsuario == id);
+            return _context.Usuario.Include(usuario => usuario.departamento).FirstOrDefault(usuario => usuario.idUsuario == id);
         }
 
         public void DeletarUsuario(int id)

@@ -10,12 +10,19 @@ namespace HelpDeskMvc.Models
     {
         [Display(Name = "ID"), Key]
         public int idUsuario { get; set; }
+        [Display(Name = "Nome")]
         public string nomeUsuario { get; set; }
+        [Display(Name = "Login")]
         public string loginUsuario { get; set; }
+        [Display(Name = "Senha")]
+        [DataType(DataType.Password)]
         public string senhaUsuario { get; set; }
+        [Display(Name = "Situação")]
         public string situacaoUsuario { get; set; }
+        [Display(Name = "Perfil")]
         public string nvlAcesso { get; set; }
         public Departamento departamento  { get; set; }
+        public int DepartamentoId { get; set; }
         public ICollection<Chamado> Listchamados = new List<Chamado>();
 
         public Usuario()

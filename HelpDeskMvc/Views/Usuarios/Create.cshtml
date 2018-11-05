@@ -1,0 +1,40 @@
+﻿@model HelpDeskMvc.Models.ViewModels.UsuarioFormViewModel
+@{
+    ViewData["Title"] = "Cadastrar usuário";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h4>Usuário</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div class="form-group">
+                <label asp-for="usuario.nomeUsuario" class="control-label"></label>
+                <input asp-for="usuario.nomeUsuario" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="usuario.loginUsuario" class="control-label"></label>
+                <input asp-for="usuario.loginUsuario" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="usuario.senhaUsuario" class="control-label"></label>
+                <input asp-for="usuario.senhaUsuario" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="usuario.nvlAcesso" class="control-label"></label>
+                <input asp-for="usuario.nvlAcesso" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="usuario.DepartamentoId" class="control-label"></label>
+                <select asp-for="usuario.DepartamentoId" asp-items="@(new SelectList(Model.departamentos,"idDpto","dsDpto"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <a asp-action="Index" class="btn btn-warning">Voltar</a>
+                <input type="submit" value="Inserir" class="btn btn-success" />
+            </div>         
+        </form>
+    </div>
+</div>
+

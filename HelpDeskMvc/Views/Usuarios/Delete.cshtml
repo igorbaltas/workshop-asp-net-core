@@ -1,0 +1,39 @@
+﻿@model HelpDeskMvc.Models.Usuario
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h3>Confirmar exclusão do usuário?</h3>
+
+<div>
+    <h4>Usuário</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nomeUsuario)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.nomeUsuario)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.loginUsuario)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.loginUsuario)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.nvlAcesso)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.nvlAcesso)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="idUsuario" />
+        <input type="submit" value="Deletar" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-warning">Voltar para a lista</a>
+    </form>
+</div>

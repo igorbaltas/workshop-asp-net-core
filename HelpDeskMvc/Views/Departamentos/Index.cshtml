@@ -7,29 +7,30 @@
 <h2>Lista de Departamentos</h2>
 
 <p>
-    <a asp-action="Create">Cadastrar departamento</a>
+    <a asp-action="Create" class="btn btn-success">Cadastrar departamento</a>
 </p>
-<table class="table">
+<table class="table table-striped table-hover">
     <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.dsDpto)
-                </th>
+        <tr class="success">
+            <th>
+                @Html.DisplayNameFor(model => model.dsDpto)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.dsDpto)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.idDpto">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.idDpto">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.idDpto">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dsDpto)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.idDpto" class="btn btn-warning">Editar</a> 
+                    <a asp-action="Details" asp-route-id="@item.idDpto" class="btn btn-success">Detalhe</a> 
+                    <a asp-action="Delete" asp-route-id="@item.idDpto" class="btn btn-danger">Deletar</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

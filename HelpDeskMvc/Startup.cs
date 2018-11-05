@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using HelpDeskMvc.Models;
 using HelpDeskMvc.Data;
+using HelpDeskMvc.Services;
 
 namespace HelpDeskMvc
 {
@@ -31,6 +32,8 @@ namespace HelpDeskMvc
                     builder.MigrationsAssembly("HelpDeskMvc")));
 
             services.AddScoped<SeedingService>();
+            services.AddScoped<UsuarioService>();
+            services.AddScoped<DepartamentoService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

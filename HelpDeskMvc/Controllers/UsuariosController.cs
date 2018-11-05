@@ -6,6 +6,7 @@ using HelpDeskMvc.Services;
 using Microsoft.AspNetCore.Mvc;
 using HelpDeskMvc.Models;
 using HelpDeskMvc.Models.ViewModels;
+using HelpDeskMvc.Services.Exceptions;
 
 namespace HelpDeskMvc.Controllers
 {
@@ -44,13 +45,13 @@ namespace HelpDeskMvc.Controllers
 
         public IActionResult Delete(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
             var usuario = _usuarioService.PesquisarId(id.Value);
-            if(usuario == null)
+            if (usuario == null)
             {
                 return NotFound();
             }
@@ -79,5 +80,49 @@ namespace HelpDeskMvc.Controllers
             }
             return View(usuario);
         }
+
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var usuario = _usuarioService.PesquisarId(id.Value);
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+            List<Departamento> departamentos = _departamentoService.ListarDepartamentos();
+            UsuarioFormViewModel viewModel = new UsuarioFormViewModel { usuario = usuario, departamentos = departamentos };
+            return View(viewModel);
+            ;
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, Usuario usuario)
+        {
+            if(id != usuario.idUsuario)
+            {
+                return BadRequest();
+            }
+            try
+            { 
+            _usuarioService.Update(usuario);
+            return RedirectToAction(nameof(Index));
+            }
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }
+            catch (DbConcurrencyException)
+            {
+                return BadRequest();
+            }
+        }
+
+
     }
 }

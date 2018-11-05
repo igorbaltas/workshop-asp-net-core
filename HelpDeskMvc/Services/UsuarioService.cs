@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using HelpDeskMvc.Services.Exceptions;
 
 namespace HelpDeskMvc.Services
 {
@@ -38,6 +39,24 @@ namespace HelpDeskMvc.Services
             var usuario = _context.Usuario.Find(id);
             _context.Usuario.Remove(usuario);
             _context.SaveChanges();
+        }
+
+        public void Update(Usuario usuario)
+        {
+            if (!_context.Usuario.Any(x => x.idUsuario == usuario.idUsuario))
+            {
+                throw new NotFoundException("Id não encontrado!");
+            }
+            try
+            {
+                usuario.situacaoUsuario = ("Ativo");
+                _context.Update(usuario);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException e)
+            {
+                throw new DbConcurrencyException(e.Message);
+            }
         }
     }
 }

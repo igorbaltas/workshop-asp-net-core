@@ -36,9 +36,17 @@ namespace HelpDeskMvc.Services
 
         public async Task DeletarUsuarioAsync(int id)
         {
-            var usuario = await _context.Usuario.FindAsync(id);
-            _context.Usuario.Remove(usuario);
-            await _context.SaveChangesAsync();
+            try
+            {
+                var usuario = await _context.Usuario.FindAsync(id);
+                _context.Usuario.Remove(usuario);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException e)
+            {
+                throw new IntegrityException(e.Message);
+            }
+           
         }
 
         public async Task UpdateAsync(Usuario usuario)

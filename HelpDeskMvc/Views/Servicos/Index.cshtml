@@ -1,0 +1,56 @@
+﻿@model IEnumerable<HelpDeskMvc.Models.Servico>
+
+@{
+    ViewData["Title"] = "Lista de serviços";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Novo serviço</a>
+</p>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr class="success">
+            <th>
+                @Html.DisplayNameFor(model => model.dsServico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.slaServico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.criticidadeServico)
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dsServico)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.slaServico)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.criticidadeServico)
+                </td>
+               
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.idServico" class="btn btn-warning">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.idServico" class="btn btn-success">Detalhes</a>
+                    <a asp-action="Delete" asp-route-id="@item.idServico" class="btn btn-danger">Deletar</a>
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+
+
+

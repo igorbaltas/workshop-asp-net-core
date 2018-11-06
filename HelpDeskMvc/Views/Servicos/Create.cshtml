@@ -1,0 +1,42 @@
+﻿@model HelpDeskMvc.Models.Servico
+
+@{
+    ViewData["Title"] = "Inserir novo serviço";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="dsServico" class="control-label"></label>
+                <input asp-for="dsServico" class="form-control" />
+                <span asp-validation-for="dsServico" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="slaServico" class="control-label"></label>
+                <input asp-for="slaServico" class="form-control" />
+                <span asp-validation-for="slaServico" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="criticidadeServico" class="control-label"></label>
+                <select asp-for="criticidadeServico" asp-items="@(new SelectList(Model.ListCriticidade,"criticidadeServico"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Cancelar</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

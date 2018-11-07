@@ -9,7 +9,7 @@ namespace HelpDeskMvc.Models
 {
     public class Chamado
     {
-        [Display(Name = "ID"), Key]
+        [Display(Name = "Número do chamado"), Key]
         public int idChamado { get; set; }
         public ChamadoStatus status { get; set; }
         public string descricaoChamado { get; set; }

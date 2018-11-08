@@ -37,6 +37,7 @@ namespace HelpDeskMvc
             services.AddScoped<UsuarioService>();
             services.AddScoped<DepartamentoService>();
             services.AddScoped<ChamadoService>();
+            services.AddScoped<ServicoService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -3,14 +3,16 @@ using System;
 using HelpDeskMvc.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HelpDeskMvc.Migrations
 {
     [DbContext(typeof(HelpDeskMvcContext))]
-    partial class HelpDeskMvcContextModelSnapshot : ModelSnapshot
+    [Migration("20181108215157_telaChamado")]
+    partial class telaChamado
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -117,7 +119,7 @@ namespace HelpDeskMvc.Migrations
             modelBuilder.Entity("HelpDeskMvc.Models.Chamado", b =>
                 {
                     b.HasOne("HelpDeskMvc.Models.Departamento", "departamento")
-                        .WithMany("ListChamados")
+                        .WithMany()
                         .HasForeignKey("DepartamentoId")
                         .OnDelete(DeleteBehavior.Cascade);
 

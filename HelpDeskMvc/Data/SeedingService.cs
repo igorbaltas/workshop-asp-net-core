@@ -46,7 +46,7 @@ namespace HelpDeskMvc.Data
             Servico s5 = new Servico(5, "CABEAMENTO", "3 SEMANAS", "MÉDIO");
             Servico s6 = new Servico(6, "DESKTOP - DANIFICADO", "2 SEMANAS", "BAIXO");
 
-            Chamado c1 = new Chamado(1, ChamadoStatus.aguardandoAtendimento, "Mouse", DateTime.Now, new DateTime(2019, 10, 7), "Trocado", u1, s1, 1,1,1);
+            Chamado c1 = new Chamado(1, ChamadoStatus.Aberto, "Mouse", DateTime.Now, new DateTime(2019, 10, 7), "Trocado", u1, s1, 1,1,1,d1,1);
 
             _context.Departamento.AddRange(d1, d2, d3, d4, d5, d6, d7, d8, d9);
             _context.Usuario.Add(u1);

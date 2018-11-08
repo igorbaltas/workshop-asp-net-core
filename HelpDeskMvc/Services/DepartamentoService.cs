@@ -17,9 +17,9 @@ namespace HelpDeskMvc.Services
             _context = context;
         }
 
-        public async Task<List<Departamento>> ListarDepartamentosAsync()
+        public List<Departamento> ListarDepartamentos()
         {
-            return await _context.Departamento.OrderBy(x => x.dsDpto).ToListAsync();
+            return _context.Departamento.OrderBy(x => x.dsDpto).ToList();
         }
     }
 }

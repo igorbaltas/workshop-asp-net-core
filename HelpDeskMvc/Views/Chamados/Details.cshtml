@@ -1,0 +1,78 @@
+﻿@model HelpDeskMvc.Models.Chamado
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Chamado</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.idChamado)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.idChamado)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.descricaoChamado)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.descricaoChamado)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.dataAbertura)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.dataAbertura)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.dataEncerramento)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.dataEncerramento)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.solucaoChamado)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.solucaoChamado)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.servico)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.servico.dsServico)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UsuarioId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UsuarioId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.tecnicoId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.tecnicoId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartamentoId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DepartamentoId)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

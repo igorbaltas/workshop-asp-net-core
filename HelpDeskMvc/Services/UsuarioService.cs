@@ -22,11 +22,11 @@ namespace HelpDeskMvc.Services
             return await _context.Usuario.ToListAsync();
         }
 
-        public async Task InserirUsuarioAsync(Usuario usuario)
+        public void InserirUsuario(Usuario usuario)
         {
             usuario.situacaoUsuario = ("Ativo");
             _context.Add(usuario);
-            await _context.SaveChangesAsync();
+            _context.SaveChangesAsync();
         }
 
         public async Task<Usuario> PesquisarIdAsync(int id)

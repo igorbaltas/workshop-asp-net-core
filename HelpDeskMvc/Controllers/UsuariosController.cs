@@ -28,24 +28,24 @@ namespace HelpDeskMvc.Controllers
             return View(list);
         }
 
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
-            var departamentos = await _departamentoService.ListarDepartamentosAsync();
+            var departamentos = _departamentoService.ListarDepartamentos();
             var viewModel = new UsuarioFormViewModel { departamentos = departamentos };
             return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Usuario usuario)
+        public IActionResult Create(Usuario usuario)
         {
             if (!ModelState.IsValid)
             {
-                var departamentos =  await _departamentoService.ListarDepartamentosAsync();
+                var departamentos =  _departamentoService.ListarDepartamentos();
                 var viewModel = new UsuarioFormViewModel { usuario = usuario, departamentos = departamentos };
                 return View(viewModel);
             }
-            await _usuarioService.InserirUsuarioAsync(usuario);
+            _usuarioService.InserirUsuario(usuario);
             return RedirectToAction(nameof(Index));
         }
 
@@ -110,7 +110,7 @@ namespace HelpDeskMvc.Controllers
                 return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
             }
 
-            List<Departamento> departamentos = await _departamentoService.ListarDepartamentosAsync();
+            List<Departamento> departamentos = _departamentoService.ListarDepartamentos();
             UsuarioFormViewModel viewModel = new UsuarioFormViewModel { usuario = usuario, departamentos = departamentos };
             return View(viewModel);
             ;
@@ -122,7 +122,7 @@ namespace HelpDeskMvc.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var departamentos = await _departamentoService.ListarDepartamentosAsync();
+                var departamentos = _departamentoService.ListarDepartamentos();
                 var viewModel = new UsuarioFormViewModel { usuario = usuario, departamentos = departamentos };
                 return View(viewModel);
             }

@@ -14,6 +14,7 @@ namespace HelpDeskMvc.Models
         [Display(Name = "Departamentos")]
         public string dsDpto { get; set; }
         public ICollection<Usuario> ListUsuarios { get; set; } = new List<Usuario>();
+        public ICollection<Chamado> ListChamados { get; set; } = new List<Chamado>();
 
         public Departamento()
         {

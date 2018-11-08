@@ -5,6 +5,10 @@
 
 <h2>@ViewData["Title"]</h2>
 
+<p>
+    <a asp-action="Create" class="btn btn-default">Abrir ocorrência</a>
+</p>
+
 <table class="table table-striped table-hover">
     <thead>
         <tr>
@@ -12,13 +16,13 @@
                 @Html.DisplayNameFor(model => model.idChamado)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.status)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.dataAbertura)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.servico)
+            </th>
+            <th>
+                
             </th>
         </tr>
     </thead>
@@ -30,13 +34,13 @@
                     @Html.DisplayFor(modelItem => item.idChamado)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.status)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.dataAbertura)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.servico)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.idChamado" class="btn btn-warning">Visualizar</a>
                 </td>
             </tr>
         }

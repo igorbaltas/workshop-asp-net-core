@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using HelpDeskMvc.Services.Exceptions;
 
 namespace HelpDeskMvc.Services
 {
@@ -18,7 +20,25 @@ namespace HelpDeskMvc.Services
 
         public List<Chamado> ListarChamados()
         {
-            return _context.Chamado.ToList();
+ 
+            return _context.Chamado.Where(x => x.status == Models.Enums.ChamadoStatus.Aberto)
+                .ToList();
+        }            
+
+
+        public void AbrirChamado(Chamado chamado)
+        {
+            chamado.status = 0;
+            chamado.dataAbertura = DateTime.Now;
+            _context.Add(chamado);
+            _context.SaveChanges();
+        }
+
+        public Chamado PesquisarId(int id)
+        {
+            return _context.Chamado.Include(x => x.servico).FirstOrDefault(x => x.idChamado == id);
+           
+
         }
     }
 }

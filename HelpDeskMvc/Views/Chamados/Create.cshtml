@@ -1,0 +1,48 @@
+﻿@model HelpDeskMvc.Models.ViewModels.ChamadoFormViewModel
+
+@{
+    ViewData["Title"] = "Chamado";
+}
+
+<h2>Chamado</h2>
+
+<h4>Chamado</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="chamado.servicoId" class="control-label"></label>
+                <select asp-for="chamado.servicoId" asp-items="@(new SelectList(Model.servicos,"idServico","dsServico"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="chamado.descricaoChamado" class="control-label"></label>
+                <input asp-for="chamado.descricaoChamado" class="form-control" />
+                <span asp-validation-for="chamado.descricaoChamado" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="chamado.DepartamentoId" class="control-label"></label>
+                <select asp-for="chamado.DepartamentoId" asp-items="@(new SelectList(Model.departamentos,"idDpto","dsDpto"))" class="form-control"></select>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="chamado.UsuarioId" class="control-label"></label>
+                <input asp-for="chamado.UsuarioId" class="form-control" />
+                <span asp-validation-for="chamado.UsuarioId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

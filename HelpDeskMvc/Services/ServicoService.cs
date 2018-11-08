@@ -17,9 +17,9 @@ namespace HelpDeskMvc.Services
             _context = context;
         }
 
-        public async Task<List<Servico>> ListarServicosAsync()
+        public List <Servico> ListarServicos()
         {
-            return await _context.Servico.OrderBy(x => x.dsServico).ToListAsync();
+            return  _context.Servico.OrderBy(x => x.dsServico).ToList();
         }
 
     }

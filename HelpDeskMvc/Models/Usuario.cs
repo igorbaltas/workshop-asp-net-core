@@ -17,7 +17,7 @@ namespace HelpDeskMvc.Models
         public string nomeUsuario { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
-        [StringLength(100, MinimumLength = 3, ErrorMessage = "{0} deve conter entre {2} e {1}")]
+        [StringLength(100, MinimumLength = 8, ErrorMessage = "{0} deve conter entre {2} e {1}")]
         [Display(Name = "Login")]
         public string loginUsuario { get; set; }
 

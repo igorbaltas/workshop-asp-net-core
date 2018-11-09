@@ -17,10 +17,13 @@ namespace HelpDeskMvc.Services
             _context = context;
         }
 
-        public async Task<List<Usuario>> ListarUsuariosAsync()
+        public List<Usuario> ListarUsuarios()
         {
-            return await _context.Usuario.ToListAsync();
+            return  _context.Usuario.ToList();
         }
+
+
+        
 
         public void InserirUsuario(Usuario usuario)
         {
@@ -29,29 +32,59 @@ namespace HelpDeskMvc.Services
             _context.SaveChangesAsync();
         }
 
-        public async Task<Usuario> PesquisarIdAsync(int id)
+        public Usuario PesquisarId(int id)
         {
-            return await _context.Usuario.Include(usuario => usuario.departamento).FirstOrDefaultAsync(usuario => usuario.idUsuario == id);
+            return _context.Usuario.Include(usuario => usuario.departamento).FirstOrDefault(usuario => usuario.idUsuario == id);
         }
 
-        public async Task DeletarUsuarioAsync(int id)
+        public void DeletarUsuario(int id)
         {
             try
             {
-                var usuario = await _context.Usuario.FindAsync(id);
+                var usuario =  _context.Usuario.Find(id);
                 _context.Usuario.Remove(usuario);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
             catch (DbUpdateException e)
             {
                 throw new IntegrityException(e.Message);
             }
-           
+
         }
 
-        public async Task UpdateAsync(Usuario usuario)
+
+        public void loginTeste(Usuario usuario)
         {
-            bool existe = await _context.Usuario.AnyAsync(x => x.idUsuario == usuario.idUsuario);
+             
+        }
+
+
+        public string Login(Usuario usuario)
+        {
+            
+            bool existe = _context.Usuario.Any(x => x.loginUsuario == usuario.loginUsuario);
+            if (existe)
+            {
+                if(_context.Usuario.Any(x => x.senhaUsuario == usuario.senhaUsuario))
+                {
+                    return "Autenticado";
+                }
+                else
+                {
+                    return "Senha incorreta";
+                }
+
+            }
+            else
+            {
+                return "Usuario não encontrado";
+            }
+            
+        }
+
+        public void Update(Usuario usuario)
+        {
+            bool existe =  _context.Usuario.Any(x => x.idUsuario == usuario.idUsuario);
             if (!existe)
             {
                 throw new NotFoundException("Id não encontrado!");
@@ -60,7 +93,7 @@ namespace HelpDeskMvc.Services
             {
                 usuario.situacaoUsuario = ("Ativo");
                 _context.Update(usuario);
-                await _context.SaveChangesAsync();
+                 _context.SaveChanges();
             }
             catch (DbUpdateConcurrencyException e)
             {

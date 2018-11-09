@@ -22,9 +22,9 @@ namespace HelpDeskMvc.Controllers
             _departamentoService = departamentoService;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var list = await _usuarioService.ListarUsuariosAsync();
+            var list = _usuarioService.ListarUsuarios();
             return View(list);
         }
 
@@ -41,7 +41,7 @@ namespace HelpDeskMvc.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var departamentos =  _departamentoService.ListarDepartamentos();
+                var departamentos = _departamentoService.ListarDepartamentos();
                 var viewModel = new UsuarioFormViewModel { usuario = usuario, departamentos = departamentos };
                 return View(viewModel);
             }
@@ -49,15 +49,40 @@ namespace HelpDeskMvc.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
 
-        public async Task<IActionResult> Delete(int? id)
+        [HttpPost]
+        public ActionResult Login(Usuario usuario)
+        {
+            string autenticacao = _usuarioService.Login(usuario);
+            if (autenticacao.Equals("Autenticado"))
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            if (autenticacao.Equals("Senha incorreta"))
+            {
+                RedirectToAction(nameof(Login));
+                ViewBag.Alerta = "Senha Incorreta";
+            }
+            if (autenticacao.Equals("Usuário não encontrado"))
+            {
+                RedirectToAction(nameof(Login));
+            }
+            return View(usuario);
+        }
+
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
-                return RedirectToAction(nameof(Error), new { message = "Id não fornecido"});
+                return RedirectToAction(nameof(Error), new { message = "Id não fornecido" });
             }
 
-            var usuario = await _usuarioService.PesquisarIdAsync(id.Value);
+            var usuario = _usuarioService.PesquisarId(id.Value);
             if (usuario == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
@@ -67,11 +92,11 @@ namespace HelpDeskMvc.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
             try
             {
-                await _usuarioService.DeletarUsuarioAsync(id);
+                _usuarioService.DeletarUsuario(id);
                 return RedirectToAction(nameof(Index));
             }
             catch (IntegrityException e)
@@ -82,14 +107,14 @@ namespace HelpDeskMvc.Controllers
 
         }
 
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não fornecido" });
             }
 
-            var usuario = await _usuarioService.PesquisarIdAsync(id.Value);
+            var usuario = _usuarioService.PesquisarId(id.Value);
             if (usuario == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
@@ -97,14 +122,14 @@ namespace HelpDeskMvc.Controllers
             return View(usuario);
         }
 
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não fornecido" });
             }
 
-            var usuario = await _usuarioService.PesquisarIdAsync(id.Value);
+            var usuario = _usuarioService.PesquisarId(id.Value);
             if (usuario == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
@@ -118,7 +143,7 @@ namespace HelpDeskMvc.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Usuario usuario)
+        public IActionResult Edit(int id, Usuario usuario)
         {
             if (!ModelState.IsValid)
             {
@@ -131,9 +156,9 @@ namespace HelpDeskMvc.Controllers
                 return RedirectToAction(nameof(Error), new { message = "Id não corresponde" });
             }
             try
-            { 
-            await _usuarioService.UpdateAsync(usuario);
-            return RedirectToAction(nameof(Index));
+            {
+                _usuarioService.Update(usuario);
+                return RedirectToAction(nameof(Index));
             }
             catch (ApplicationException e)
             {

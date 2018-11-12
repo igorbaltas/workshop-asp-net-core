@@ -3,14 +3,16 @@ using System;
 using HelpDeskMvc.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HelpDeskMvc.Migrations
 {
     [DbContext(typeof(HelpDeskMvcContext))]
-    partial class HelpDeskMvcContextModelSnapshot : ModelSnapshot
+    [Migration("20181112131601_novoDB1")]
+    partial class novoDB1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

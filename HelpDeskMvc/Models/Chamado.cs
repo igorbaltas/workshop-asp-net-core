@@ -23,19 +23,14 @@ namespace HelpDeskMvc.Models
         public int servicoId { get; set; }
         public int UsuarioId { get; set; }
         public int tecnicoId { get; set; }
+        public Usuario tecnico { get; set; }
         [Display(Name = "Departamento")]
         public Departamento departamento { get; set; }
         public int DepartamentoId { get; set; }
         public ICollection<Chamado> Listchamados = new List<Chamado>();
+        public ICollection<HistoricoChamado> ListHist = new List<HistoricoChamado>();
 
-
-
-        public Chamado()
-        {
-
-        }
-
-        public Chamado(int idChamado, ChamadoStatus status, string descricaoChamado, DateTime dataAbertura, DateTime dataEncerramento, string solucaoChamado, Usuario usuario, Servico servico, int servicoId, int usuarioId, int tecnicoId, Departamento departamento, int departamentoId)
+        public Chamado(int idChamado, ChamadoStatus status, string descricaoChamado, DateTime dataAbertura, DateTime dataEncerramento, string solucaoChamado, Usuario usuario, Servico servico, int servicoId, int usuarioId, int tecnicoId, Usuario tecnico, Departamento departamento, int departamentoId)
         {
             this.idChamado = idChamado;
             this.status = status;
@@ -48,8 +43,16 @@ namespace HelpDeskMvc.Models
             this.servicoId = servicoId;
             UsuarioId = usuarioId;
             this.tecnicoId = tecnicoId;
+            this.tecnico = tecnico;
             this.departamento = departamento;
             DepartamentoId = departamentoId;
         }
+
+        public Chamado()
+        {
+
+        }
+
+       
     }
 }

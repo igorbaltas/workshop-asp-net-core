@@ -21,7 +21,7 @@ namespace HelpDeskMvc.Services
         public List<Chamado> ListarChamados()
         {
  
-            return _context.Chamado.Where(x => x.status == Models.Enums.ChamadoStatus.Aberto)
+            return _context.Chamado.Where(x => x.status == Models.Enums.ChamadoStatus.Aberto).Include(x => x.servico)
                 .ToList();
         }            
 
@@ -36,7 +36,7 @@ namespace HelpDeskMvc.Services
 
         public Chamado PesquisarId(int id)
         {
-            return _context.Chamado.Include(x => x.servico).FirstOrDefault(x => x.idChamado == id);
+            return _context.Chamado.Include(x => x.servico).Include(x => x.departamento).Include(x => x.usuario).Include(x => x.tecnico).FirstOrDefault(x => x.idChamado == id);
            
 
         }

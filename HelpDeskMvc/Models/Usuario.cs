@@ -27,6 +27,7 @@ namespace HelpDeskMvc.Models
         [DataType(DataType.Password)]
         public string senhaUsuario { get; set; }
 
+
         [Display(Name = "Situação")]
         public string situacaoUsuario { get; set; }
 
@@ -39,12 +40,13 @@ namespace HelpDeskMvc.Models
         public int DepartamentoId { get; set; }
         public ICollection<Chamado> Listchamados = new List<Chamado>();
 
+
         public Usuario()
         {
 
         }
 
-        public Usuario(int idUsuario, string nomeUsuario, string loginUsuario, string senhaUsuario, string situacaoUsuario, string nvlAcesso, Departamento departamento)
+        public Usuario(int idUsuario, string nomeUsuario, string loginUsuario, string senhaUsuario, string situacaoUsuario, string nvlAcesso, Departamento departamento, int departamentoId)
         {
             this.idUsuario = idUsuario;
             this.nomeUsuario = nomeUsuario;
@@ -53,6 +55,7 @@ namespace HelpDeskMvc.Models
             this.situacaoUsuario = situacaoUsuario;
             this.nvlAcesso = nvlAcesso;
             this.departamento = departamento;
+            DepartamentoId = departamentoId;
         }
 
         public void AbrirChamado(Chamado chamado)

@@ -65,7 +65,6 @@ namespace HelpDeskMvc.Controllers
         }
 
 
-
         public IActionResult BuscaSimples()
         {
             return View();

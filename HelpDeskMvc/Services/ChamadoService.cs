@@ -34,6 +34,26 @@ namespace HelpDeskMvc.Services
             _context.SaveChanges();
         }
 
+        //TESTAR MÉTODO
+        public int AguardandoAtendimento()
+        {
+            return _context.Chamado.Where(x => x.status == Models.Enums.ChamadoStatus.Aberto).Count();
+        }
+
+
+        //TESTAR MÉTODO
+        public int EmAtendimento()
+        {
+            return _context.Chamado.Where(x => x.status == Models.Enums.ChamadoStatus.Desenvolvimento).Count();
+        }
+
+
+        //TESTAR MÉTODO
+        public int Encerrado()
+        {
+            return _context.Chamado.Where(x => x.status == Models.Enums.ChamadoStatus.Encerrado).Count();
+        }
+
         public Chamado PesquisarId(int id)
         {
             return _context.Chamado.Include(x => x.servico).Include(x => x.departamento).Include(x => x.usuario).Include(x => x.tecnico).FirstOrDefault(x => x.idChamado == id);

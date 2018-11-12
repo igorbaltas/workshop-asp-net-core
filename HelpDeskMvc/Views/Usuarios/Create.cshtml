@@ -25,7 +25,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="usuario.nvlAcesso" class="control-label"></label>
-                <input asp-for="usuario.nvlAcesso" class="form-control" />
+                <select asp-for="usuario.nvlAcesso" class="form-control">
+                    <option value="">Selecione o perfil</option>
+                    <option value="Administrador">Administrador</option>
+                    <option value="Operador">Operador</option>
+                    <option value="Usuário">Usuário</option>
+                </select>
+
             </div>
             <div class="form-group">
                 <label asp-for="usuario.DepartamentoId" class="control-label"></label>
@@ -34,12 +40,12 @@
             <div class="form-group">
                 <a asp-action="Index" class="btn btn-warning">Voltar</a>
                 <input type="submit" value="Inserir" class="btn btn-success" />
-            </div>         
+            </div>
         </form>
     </div>
 </div>
 
-@section Scripts{ 
+@section Scripts{
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
 

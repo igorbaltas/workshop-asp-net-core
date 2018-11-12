@@ -19,7 +19,8 @@ namespace HelpDeskMvc.Services
 
         public List<Usuario> ListarUsuarios()
         {
-            return  _context.Usuario.ToList();
+            return _context.Usuario.Where(x => x.situacaoUsuario == "Ativo")
+               .ToList();
         }
 
 
@@ -42,7 +43,8 @@ namespace HelpDeskMvc.Services
             try
             {
                 var usuario =  _context.Usuario.Find(id);
-                _context.Usuario.Remove(usuario);
+                usuario.situacaoUsuario = "Inativo";
+                _context.Usuario.Update(usuario);
                 _context.SaveChanges();
             }
             catch (DbUpdateException e)

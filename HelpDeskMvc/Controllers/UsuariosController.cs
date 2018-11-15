@@ -45,6 +45,11 @@ namespace HelpDeskMvc.Controllers
                 var viewModel = new UsuarioFormViewModel { usuario = usuario, departamentos = departamentos };
                 return View(viewModel);
             }
+
+           /* if (_usuarioService.verificarUsuario)
+            {
+                _usuarioService.InserirUsuario(usuario);
+            }*/
             _usuarioService.InserirUsuario(usuario);
             return RedirectToAction(nameof(Index));
         }

@@ -28,9 +28,12 @@ namespace HelpDeskMvc.Services
 
         public void InserirUsuario(Usuario usuario)
         {
-            usuario.situacaoUsuario = ("Ativo");
-            _context.Add(usuario);
-            _context.SaveChangesAsync();
+            
+                usuario.situacaoUsuario = ("Ativo");
+                _context.Add(usuario);
+                _context.SaveChanges();
+      
+
         }
 
         public Usuario PesquisarId(int id)
@@ -60,6 +63,14 @@ namespace HelpDeskMvc.Services
              
         }
 
+        public bool verificarUsuario(Usuario usuario)
+        {
+            
+            if(_context.Usuario.Any(x => x.loginUsuario == usuario.loginUsuario))
+                return true;
+            
+            return false;
+        }
 
         public string Login(Usuario usuario)
         {

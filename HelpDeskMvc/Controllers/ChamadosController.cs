@@ -24,12 +24,17 @@ namespace HelpDeskMvc.Controllers
             _departamentoService = departamentoService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int id)
         {
             var list = _chamadoService.ListarChamados();
             return View(list);
         }
 
+        public IActionResult MeusChamados(int id = 1)
+        {
+            var lista = _chamadoService.ListarChamadoUsuario(id);
+            return View(lista);
+        }
 
         public IActionResult Create()
         {

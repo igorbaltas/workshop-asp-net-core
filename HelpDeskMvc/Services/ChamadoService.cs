@@ -18,6 +18,11 @@ namespace HelpDeskMvc.Services
             _context = context;
         }
 
+        public List<Chamado> ListarChamadoUsuario(int id)
+        {
+            return _context.Chamado.Where(x => x.UsuarioId == id).Include(x => x.servico).ToList();
+        }
+
         public List<Chamado> ListarChamados()
         {
  
@@ -28,6 +33,7 @@ namespace HelpDeskMvc.Services
 
         public void AbrirChamado(Chamado chamado)
         {
+            chamado.tecnicoId = 1;
             chamado.status = 0;
             chamado.dataAbertura = DateTime.Now;
             _context.Add(chamado);

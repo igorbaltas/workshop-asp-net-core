@@ -11,9 +11,10 @@ namespace HelpDeskMvc.Models
     {
         [Display(Name = "Número do chamado"), Key]
         public int idChamado { get; set; }
+        [Display(Name = "Status")]
         public ChamadoStatus status { get; set; }
         public string descricaoChamado { get; set; }
-        [Display(Name = "Problema")]
+        [Display(Name = "Data de Abertura")]
         public DateTime dataAbertura { get; set; }
         public DateTime dataEncerramento { get; set; }
         public string solucaoChamado { get; set; }
@@ -28,6 +29,7 @@ namespace HelpDeskMvc.Models
         public Departamento departamento { get; set; }
         public int DepartamentoId { get; set; }
         public ICollection<Chamado> Listchamados = new List<Chamado>();
+        public ICollection<Chamado> ListarChamadoUsuario = new List<Chamado>();
         public ICollection<HistoricoChamado> ListHist = new List<HistoricoChamado>();
 
         public Chamado(int idChamado, ChamadoStatus status, string descricaoChamado, DateTime dataAbertura, DateTime dataEncerramento, string solucaoChamado, Usuario usuario, Servico servico, int servicoId, int usuarioId, int tecnicoId, Usuario tecnico, Departamento departamento, int departamentoId)

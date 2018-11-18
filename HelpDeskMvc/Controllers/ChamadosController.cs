@@ -24,8 +24,9 @@ namespace HelpDeskMvc.Controllers
             _departamentoService = departamentoService;
         }
 
-        public IActionResult Index(int id)
+        public IActionResult Index(int id, string nomeUsuario)
         {
+            ViewBag.usuario = nomeUsuario;
             var list = _chamadoService.ListarChamados();
             return View(list);
         }
@@ -53,6 +54,17 @@ namespace HelpDeskMvc.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public IActionResult BuscaData(DateTime? minDate, DateTime? maxDate)
+        {
+            var result = _chamadoService.BuscarPorData(minDate, maxDate);
+            return View(result);
+        }
+
+        public IActionResult BuscaId(int id)
+        {
+            var result = _chamadoService.BuscarPorId(id);
+            return View(result);
+        }
 
         public IActionResult Details(int? id)
         {

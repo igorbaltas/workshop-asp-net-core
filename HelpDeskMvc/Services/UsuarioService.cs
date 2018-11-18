@@ -24,15 +24,15 @@ namespace HelpDeskMvc.Services
         }
 
 
-        
+
 
         public void InserirUsuario(Usuario usuario)
         {
-            
-                usuario.situacaoUsuario = ("Ativo");
-                _context.Add(usuario);
-                _context.SaveChanges();
-      
+
+            usuario.situacaoUsuario = ("Ativo");
+            _context.Add(usuario);
+            _context.SaveChanges();
+
 
         }
 
@@ -45,7 +45,7 @@ namespace HelpDeskMvc.Services
         {
             try
             {
-                var usuario =  _context.Usuario.Find(id);
+                var usuario = _context.Usuario.Find(id);
                 usuario.situacaoUsuario = "Inativo";
                 _context.Usuario.Update(usuario);
                 _context.SaveChanges();
@@ -60,10 +60,10 @@ namespace HelpDeskMvc.Services
 
         public void loginTeste(Usuario usuario)
         {
-             
+
         }
 
-        public bool verificarUsuario(Usuario usuario)
+        /*public bool verificarUsuario(Usuario usuario)
         {
             
             if(_context.Usuario.Any(x => x.loginUsuario == usuario.loginUsuario))
@@ -72,7 +72,7 @@ namespace HelpDeskMvc.Services
             return false;
         }
 
-        public string Login(Usuario usuario)
+       public string Login(Usuario usuario)
         {
             
             bool existe = _context.Usuario.Any(x => x.loginUsuario == usuario.loginUsuario);
@@ -93,11 +93,17 @@ namespace HelpDeskMvc.Services
                 return "Usuario não encontrado";
             }
             
+        }*/
+
+        public void Login(Usuario usuario)
+        {
+            var usuarioLogado = _context.Usuario.Any(x => x.loginUsuario == usuario.loginUsuario && x.senhaUsuario == usuario.senhaUsuario);
+            
         }
 
         public void Update(Usuario usuario)
         {
-            bool existe =  _context.Usuario.Any(x => x.idUsuario == usuario.idUsuario);
+            bool existe = _context.Usuario.Any(x => x.idUsuario == usuario.idUsuario);
             if (!existe)
             {
                 throw new NotFoundException("Id não encontrado!");
@@ -106,7 +112,7 @@ namespace HelpDeskMvc.Services
             {
                 usuario.situacaoUsuario = ("Ativo");
                 _context.Update(usuario);
-                 _context.SaveChanges();
+                _context.SaveChanges();
             }
             catch (DbUpdateConcurrencyException e)
             {

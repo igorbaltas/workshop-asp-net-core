@@ -15,11 +15,15 @@ namespace HelpDeskMvc.Controllers
     {
         private readonly UsuarioService _usuarioService;
         private readonly DepartamentoService _departamentoService;
+        // private readonly HelpDeskMvcContext _context;
+        private readonly HelpDeskMvcContext _context;
 
-        public UsuariosController(UsuarioService usuarioService, DepartamentoService departamentoService)
+
+        public UsuariosController(UsuarioService usuarioService, DepartamentoService departamentoService, HelpDeskMvcContext context)
         {
             _usuarioService = usuarioService;
             _departamentoService = departamentoService;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -63,21 +67,39 @@ namespace HelpDeskMvc.Controllers
         [HttpPost]
         public ActionResult Login(Usuario usuario)
         {
-            string autenticacao = _usuarioService.Login(usuario);
-            if (autenticacao.Equals("Autenticado"))
+           // HelpDeskMvcContext _context = new HelpDeskMvcContext();
+            var usuarioLogado = _context.Usuario.SingleOrDefault(x => x.loginUsuario == usuario.loginUsuario && x.senhaUsuario == usuario.senhaUsuario);
+
+            if (usuarioLogado != null)
             {
-                return RedirectToAction(nameof(Index));
+                ViewBag.message = "loggedIn";
+                ViewBag.triedOnce = "yes";
+                return RedirectToAction("Index","Chamados", new {usuario = usuario.nomeUsuario });
             }
-            if (autenticacao.Equals("Senha incorreta"))
+            else
             {
-                RedirectToAction(nameof(Login));
-                ViewBag.Alerta = "Senha Incorreta";
+                ViewBag.triedOnce = "yes";
+                return View();
             }
-            if (autenticacao.Equals("Usuário não encontrado"))
-            {
-                RedirectToAction(nameof(Login));
-            }
-            return View(usuario);
+
+
+
+
+
+            /* if (autenticacao.Equals("Autenticado"))
+             {
+                 return RedirectToAction(nameof(Index));
+             }
+             if (autenticacao.Equals("Senha incorreta"))
+             {
+                 RedirectToAction(nameof(Login));
+                 ViewBag.Alerta = "Senha Incorreta";
+             }
+             if (autenticacao.Equals("Usuário não encontrado"))
+             {
+                 RedirectToAction(nameof(Login));
+             }
+             return View(usuario);*/
         }
 
         public IActionResult Delete(int? id)

@@ -40,6 +40,30 @@ namespace HelpDeskMvc.Services
             _context.SaveChanges();
         }
 
+        public List<Chamado> BuscarPorData(DateTime? minDate, DateTime? maxDate)
+        {
+            var result = from obj in _context.Chamado select obj;
+            if (minDate.HasValue)
+            {
+                result = result.Where(x => x.dataAbertura >= minDate.Value);
+            }
+            if (maxDate.HasValue)
+            {
+                result = result.Where(x => x.dataAbertura <= maxDate.Value);
+            }
+            return result.Include(x => x.departamento).Include(x => x.usuario).OrderBy(x => x.dataAbertura).ToList();
+        }
+
+        public List<Chamado> BuscarPorId(int? id)
+        {
+            var result = from obj in _context.Chamado select obj;
+            if (id.HasValue)
+            {
+                result = result.Where(x => x.idChamado == id);
+            }
+            return result.Include(x => x.departamento).Include(x => x.usuario).OrderBy(x => x.dataAbertura).ToList();
+        }
+
         //TESTAR MÉTODO
         public int AguardandoAtendimento()
         {

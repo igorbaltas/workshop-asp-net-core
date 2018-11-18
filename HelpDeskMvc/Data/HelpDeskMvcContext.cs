@@ -13,6 +13,11 @@ namespace HelpDeskMvc.Models
         {
         }
 
+        /*public HelpDeskMvcContext()
+        {
+
+        }*/
+
         public DbSet<Departamento> Departamento { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<Chamado> Chamado { get; set; }

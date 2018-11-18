@@ -7,6 +7,12 @@
 {
     @Html.AntiForgeryToken()
 
+    if(ViewBag.message == null && ViewBag.triedOnce == "yes")
+    {
+        <h4>Usuário ou Senha não encontrado, por favor tente novamente ou contate o administrador.@Html.ActionLink("Login","Usuario")</h4>
+
+    }
+
 <div class="form-horizontal">
     <h4>Usuario</h4>
     <hr />
@@ -22,7 +28,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.senhaUsuario, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.senhaUsuario, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.PasswordFor(model => model.senhaUsuario, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.senhaUsuario, "", new { @class = "text-danger" })
         </div>
     </div>

@@ -8,6 +8,7 @@ using HelpDeskMvc.Models;
 using HelpDeskMvc.Models.ViewModels;
 using HelpDeskMvc.Services.Exceptions;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Http;
 
 namespace HelpDeskMvc.Controllers
 {
@@ -26,10 +27,20 @@ namespace HelpDeskMvc.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string usuario, int id)
         {
             var list = _usuarioService.ListarUsuarios();
-            return View(list);
+            if (HttpContext.Session.GetString("usuario") == null)
+            {
+                return RedirectToAction("Login", "Usuarios");
+            }
+            else
+            {
+                ViewBag.usuario = HttpContext.Session.GetString("usuario");
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+                return View(list);
+
+            }
         }
 
         public IActionResult Create()
@@ -58,9 +69,14 @@ namespace HelpDeskMvc.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
         [HttpGet]
         public ActionResult Login()
         {
+            if(HttpContext.Session.GetString("usuario") != null)
+            {
+                return RedirectToAction("Index", "Usuarios", new { usuario = HttpContext.Session.GetString("usuario").ToString(), id = HttpContext.Session.GetInt32("id")});
+            }
             return View();
         }
 
@@ -74,7 +90,12 @@ namespace HelpDeskMvc.Controllers
             {
                 ViewBag.message = "loggedIn";
                 ViewBag.triedOnce = "yes";
-                return RedirectToAction("Index","Chamados", new {usuario = usuario.nomeUsuario });
+
+                
+                HttpContext.Session.SetString("usuario", usuario.loginUsuario);
+                HttpContext.Session.SetInt32("id", usuario.idUsuario);
+
+                return RedirectToAction("Index","Usuarios", new {usuario = usuario.nomeUsuario,  id = usuario.idUsuario });
             }
             else
             {

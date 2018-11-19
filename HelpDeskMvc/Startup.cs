@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using HelpDeskMvc.Models;
 using HelpDeskMvc.Data;
 using HelpDeskMvc.Services;
+using Microsoft.AspNetCore.Session;
 
 namespace HelpDeskMvc
 {
@@ -28,7 +29,8 @@ namespace HelpDeskMvc
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-
+            services.AddDistributedMemoryCache();
+            services.AddSession();
             services.AddDbContext<HelpDeskMvcContext>(options =>
                     options.UseMySql(Configuration.GetConnectionString("HelpDeskMvcContext"), builder =>
                     builder.MigrationsAssembly("HelpDeskMvc")));
@@ -38,6 +40,7 @@ namespace HelpDeskMvc
             services.AddScoped<DepartamentoService>();
             services.AddScoped<ChamadoService>();
             services.AddScoped<ServicoService>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,12 +67,13 @@ namespace HelpDeskMvc
             }
 
             app.UseStaticFiles();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Usuarios}/{action=Login}/{id?}");
             });
         }
     }

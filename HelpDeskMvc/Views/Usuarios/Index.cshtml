@@ -6,6 +6,21 @@
 
 <h2>@ViewData["Title"]</h2>
 
+@if (ViewBag.usuario != null)
+{
+    <h2>Olá, @ViewBag.usuario, @ViewBag.id!</h2>
+}
+
+
+<div class="col-md-4">
+    <form asp-action="Logout">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group">
+            <input type="submit" value="Sair" class="btn btn-default" />
+        </div>
+    </form>
+</div>
 
 <table class="table table-striped table-hover">
     <thead>

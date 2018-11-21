@@ -18,18 +18,8 @@ namespace HelpDeskMvc.Services
             _context = context;
         }
 
-        /*public List<HistoricoChamado> ListarHistorico()
-        {
+       
 
-         //   return _context.Chamado.Where(x => x.status == Models.Enums.ChamadoStatus.Aberto).Include(x => x.servico)
-               // .ToList();
-        }*/
-
-        /*public HistoricoChamado PesquisarId(int id)
-        {
-            return _context.chamado.Include(x => x.servico).Include(x => x.departamento).Include(x => x.usuario).Include(x => x.tecnico).FirstOrDefault(x => x.idChamado == id);
-
-
-        }*/
+        
     }
 }

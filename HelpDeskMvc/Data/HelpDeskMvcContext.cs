@@ -8,7 +8,7 @@ namespace HelpDeskMvc.Models
 {
     public class HelpDeskMvcContext : DbContext
     {
-        public HelpDeskMvcContext (DbContextOptions<HelpDeskMvcContext> options)
+        public HelpDeskMvcContext(DbContextOptions<HelpDeskMvcContext> options)
             : base(options)
         {
         }
@@ -22,6 +22,7 @@ namespace HelpDeskMvc.Models
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<Chamado> Chamado { get; set; }
         public DbSet<Servico> Servico { get; set; }
+        public DbSet<HistoricoChamado> HistoricoChamado { get; set;}
 
     }
 }

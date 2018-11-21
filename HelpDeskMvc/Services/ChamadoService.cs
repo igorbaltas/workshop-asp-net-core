@@ -28,7 +28,21 @@ namespace HelpDeskMvc.Services
  
             return _context.Chamado.Where(x => x.status == Models.Enums.ChamadoStatus.Aberto).Include(x => x.servico)
                 .ToList();
-        }            
+        }
+
+
+
+        public List<HistoricoChamado> BuscarLogId(int? id)
+        {
+            var result = from obj in _context.HistoricoChamado select obj;
+            if (id.HasValue)
+            {
+                result = result.Where(x => x.ChamadoId == id);
+            }
+            return result.ToList();
+        }
+
+
 
 
         public void AbrirChamado(Chamado chamado)

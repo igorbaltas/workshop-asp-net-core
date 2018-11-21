@@ -15,7 +15,6 @@ namespace HelpDeskMvc.Controllers
         private readonly ChamadoService _chamadoService;
         private readonly ServicoService _servicoService;
         private readonly DepartamentoService _departamentoService;
-        Chamado chamadoModel = new Chamado();
 
 
         public ChamadosController(ChamadoService chamadoService, ServicoService servicoService, DepartamentoService departamentoService)

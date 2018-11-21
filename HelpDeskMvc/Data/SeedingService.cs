@@ -21,7 +21,8 @@ namespace HelpDeskMvc.Data
             if (_context.Departamento.Any() ||
                 _context.Usuario.Any() ||
                 _context.Chamado.Any() ||
-                    _context.Servico.Any())
+                    _context.Servico.Any()||
+                    _context.HistoricoChamado.Any())
             {
                 return;
             }
@@ -49,10 +50,14 @@ namespace HelpDeskMvc.Data
 
             Chamado c1 = new Chamado(1, ChamadoStatus.Aberto, "Mouse", DateTime.Now, new DateTime(2019, 10, 7), "Trocado", u1, s1, 1,1,6,u2,d1,1);
 
+            HistoricoChamado h1 = new HistoricoChamado(1, "Log teste", DateTime.Now, c1, 1, u2, 6);
+
             _context.Departamento.AddRange(d1, d2, d3, d4, d5, d6, d7, d8, d9);
             _context.Usuario.Add(u1);
             _context.Servico.AddRange(s2, s3, s4, s5, s6);
             _context.Chamado.Add(c1);
+            _context.HistoricoChamado.Add(h1);
+
 
 
             _context.SaveChanges();

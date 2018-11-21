@@ -1,35 +1,227 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿/* ================== Layout ===================*/
+html, body, .capa {
+    height: 100%;
+    overflow: auto;
 }
 
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+div.capa-index {
+    font-family: helvetica,arial,sans-serif;
+    overflow: hidden;
 }
 
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
+.capa {
+    height: 100vh;
+}
+body {
+    background: url(/imagens/CAPA.jpg);
+    background-attachment: fixed;
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+}
+/*-- barra de navegação --*/
+.img-logo {
+    height: 70px;
+    width: 70px;
+    display: block;
+    background: url(/imagens/icone.png)no-repeat;
+    background-size: contain;
+    color: transparent;
+    margin: -18% 0 0 0;
 }
 
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
+nav.navbar-transparente {
+    padding: 15px 0px;
+    background: rgba(0,0,0,0.6);
+    border: none;
+}
+
+.navbar-brand {
+    padding: 5px 15px;
+}
+
+.divisor {
+    width: 1px;
+    height: 16px;
+    background: white;
+    margin: 16px 10px;
+}
+
+.navbar-inverse .navbar-nav > li > a, footer .nav a {
+    color: white;
+}
+
+    .navbar-inverse .navbar-nav > li > a:hover, footer .nav a:hover {
+        color: #9bf0e1;
+        background: none;
+    }
+
+/*-- Imagem de capa --*/
+.capa {
+    display: table;
     width: 100%;
 }
 
-/* QR code generator */
-#qrCode {
-    margin: 15px;
+.texto-capa {
+    text-align: center;
+    color: white;
+    display: table-cell;
+    vertical-align: middle;
+}
+/*-- botões --*/
+.btn-custom {
+    color: white;
+    border-radius: 500px;
+    -webkit-border-radius: 500px;
+    -moz-border-radius: 500px;
+    text-transform: uppercase;
+    transition: background 0.4s, color 0.4s;
 }
 
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
+.btn-roxo {
+    background: #7c25f8;
+}
+
+    .btn-roxo:hover {
+        background-color: #6207e3;
+        color: white;
     }
+
+.btn-branco {
+    border: 2px solid white;
+}
+
+    .btn-branco:hover {
+        background-color: white;
+        color: black;
+    }
+
+/*-- seção de serciço --*/
+#servicos {
+    background: white;
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+.albuns {
+    padding: 10px 0px 10px 0px;
+}
+
+/*-- recursos --*/
+#recursos {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: white;
+}
+
+.rotacionar {
+    transform: rotate(30deg);
+    -ms-transform: rotate(30deg);
+    -webkit-transform: rotate(30deg);
+    padding-left: 80px;
+}
+
+/* -- rodape --*/
+footer {
+    background: #000;
+    padding: 50px 0px 100px 0px;
+    position: relative;
+}
+
+.item-rede-social {
+    float: right;
+}
+
+    .item-rede-social:hover {
+    }
+/*================== Tipografia =================*/
+h1 {
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    margin-bottom: 50px;
+    color: white
+   
+}
+
+@media screen and (max-width: 767px) {
+    h1 {
+        font-size: 50px;
+    }
+
+    .btn-custom {
+        margin: 10px 15px;
+    }
+}
+/* sm tablet */
+@media screen and (min-width: 768px) {
+    h1 {
+        font-size: 70px;
+    }
+}
+
+/* md notebook*/
+@media screen and (min-width: 992px) {
+    h1 {
+        font-size: 80px;
+    }
+}
+
+/* lg desktop*/
+@media screen and (min-width: 1200px) {
+    h1 {
+        font-size: 100px;
+    }
+}
+/*FIM Media queries*/
+
+h2 {
+    font-size: 50px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: #919496
+}
+
+h3 {
+    font-size: 35px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+}
+
+#rodape h4 {
+    color: #919496;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+#servicos h2, #servicos h3 {
+    color: #6E6E6E;
+}
+
+#recursos h3 {
+    color: #9bf0e1;
+}
+
+img {
+    border-radius: 10px;
+}
+
+.etidar-img {
+    width: 400px;
+}
+
+.mapa {
+    width: 63px;
+}
+
+    .mapa:hover {
+        -webkit-transform: scale(1.2);
+        -ms-transform: scale(1.2);
+        transform: scale(1.2);
+        transition: 0.2s;
+    }
+
+.rodape {
+    color: white;
+
 }

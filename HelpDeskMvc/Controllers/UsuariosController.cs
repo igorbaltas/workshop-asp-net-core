@@ -43,6 +43,12 @@ namespace HelpDeskMvc.Controllers
             }
         }
 
+        public IActionResult Logout()
+        {   
+            HttpContext.Session.Clear();
+            return RedirectToAction(nameof(Login));
+        }
+
         public IActionResult Create()
         {
             var departamentos = _departamentoService.ListarDepartamentos();

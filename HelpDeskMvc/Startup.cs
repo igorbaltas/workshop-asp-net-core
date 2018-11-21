@@ -41,6 +41,7 @@ namespace HelpDeskMvc
             services.AddScoped<ChamadoService>();
             services.AddScoped<ServicoService>();
             services.AddScoped<HistoricoChamadoService>();
+            services.AddScoped<InventarioService>();
             
         }
 

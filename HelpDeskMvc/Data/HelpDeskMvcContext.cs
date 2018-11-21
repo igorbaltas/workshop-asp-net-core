@@ -22,7 +22,8 @@ namespace HelpDeskMvc.Models
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<Chamado> Chamado { get; set; }
         public DbSet<Servico> Servico { get; set; }
-        public DbSet<HistoricoChamado> HistoricoChamado { get; set;}
+        public DbSet<HistoricoChamado> HistoricoChamado { get; set; }
+        public DbSet<Inventario> Inventario { get; set; }
 
     }
 }

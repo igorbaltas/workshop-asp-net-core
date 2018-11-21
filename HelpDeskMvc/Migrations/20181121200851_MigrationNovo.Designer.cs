@@ -3,14 +3,16 @@ using System;
 using HelpDeskMvc.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HelpDeskMvc.Migrations
 {
     [DbContext(typeof(HelpDeskMvcContext))]
-    partial class HelpDeskMvcContextModelSnapshot : ModelSnapshot
+    [Migration("20181121200851_MigrationNovo")]
+    partial class MigrationNovo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -85,28 +87,6 @@ namespace HelpDeskMvc.Migrations
                     b.HasIndex("UsuarioId");
 
                     b.ToTable("HistoricoChamado");
-                });
-
-            modelBuilder.Entity("HelpDeskMvc.Models.Inventario", b =>
-                {
-                    b.Property<int>("idMaquina")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("cpuMaquina");
-
-                    b.Property<string>("hostNameMaquina");
-
-                    b.Property<string>("localMaquina");
-
-                    b.Property<string>("memoriaMaquina");
-
-                    b.Property<string>("sistemaMaquina");
-
-                    b.Property<string>("tipoEquipamento");
-
-                    b.HasKey("idMaquina");
-
-                    b.ToTable("Inventario");
                 });
 
             modelBuilder.Entity("HelpDeskMvc.Models.Servico", b =>

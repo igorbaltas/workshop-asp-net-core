@@ -9,6 +9,14 @@ namespace HelpDeskMvc.Models
 {
     public class Chamado
     {
+
+        private readonly HelpDeskMvcContext _context;
+
+        public Chamado(HelpDeskMvcContext context)
+        {
+            _context = context;
+        }
+
         [Display(Name = "Número do chamado"), Key]
         public int idChamado { get; set; }
         [Display(Name = "Status")]
@@ -55,6 +63,21 @@ namespace HelpDeskMvc.Models
 
         }
 
-       
+        public string calcularTempoChamado(DateTime dataAbertura)
+        {
+            TimeSpan idadeChamado = (DateTime.Now - dataAbertura);
+            return (idadeChamado.Days).ToString();
+        }
+
+
+        public int EmAtendimento()
+        {
+            return _context.Chamado.Where(x => x.status == Models.Enums.ChamadoStatus.Desenvolvimento).Count();
+        }
+
+        public int AguardandoAtendimento()
+        {
+            return _context.Chamado.Where(x => x.status == Models.Enums.ChamadoStatus.Aberto).Count(); 
+        }
     }
 }

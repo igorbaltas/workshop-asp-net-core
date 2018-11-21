@@ -15,6 +15,7 @@ namespace HelpDeskMvc.Controllers
         private readonly ChamadoService _chamadoService;
         private readonly ServicoService _servicoService;
         private readonly DepartamentoService _departamentoService;
+        Chamado chamadoModel = new Chamado();
 
 
         public ChamadosController(ChamadoService chamadoService, ServicoService servicoService, DepartamentoService departamentoService)
@@ -73,13 +74,16 @@ namespace HelpDeskMvc.Controllers
                 return RedirectToAction(nameof(Error), new { message = "Id não fornecido" });
             }
 
-            var usuario =  _chamadoService.PesquisarId(id.Value);
-            if (usuario == null)
+            var chamado =  _chamadoService.PesquisarId(id.Value);
+            if (chamado == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
             }
-            return View(usuario);
+            //chamadoModel.calcularTempoChamado(chamado);
+            return View(chamado);
         }
+
+       
 
 
         public IActionResult BuscaSimples()

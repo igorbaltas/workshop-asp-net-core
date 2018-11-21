@@ -65,18 +65,10 @@ namespace HelpDeskMvc.Services
         }
 
         //TESTAR MÉTODO
-        public int AguardandoAtendimento()
-        {
-            return _context.Chamado.Where(x => x.status == Models.Enums.ChamadoStatus.Aberto).Count();
-        }
 
 
-        //TESTAR MÉTODO
-        public int EmAtendimento()
-        {
-            return _context.Chamado.Where(x => x.status == Models.Enums.ChamadoStatus.Desenvolvimento).Count();
-        }
 
+       
 
         //TESTAR MÉTODO
         public int Encerrado()

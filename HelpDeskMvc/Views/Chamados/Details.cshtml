@@ -23,6 +23,27 @@
             @Html.DisplayFor(model => model.status)
         </dd>
         <dt>
+            Aberto há:
+        </dt>
+        <dd>
+            @Model.calcularTempoChamado(Model.dataAbertura).ToString() dias
+        </dd>
+
+        <dd>
+            AGUARDANDO ATENDIMENTO ==========>  @Model.AguardandoAtendimento()
+        </dd>
+
+        @if (Model.dataEncerramento != Convert.ToDateTime("01/01/0001"))
+        {
+
+            @Html.DisplayNameFor(model => model.dataEncerramento)
+
+
+            @Html.DisplayFor(model => model.dataEncerramento)
+
+
+        }
+        <dt>
             @Html.DisplayNameFor(model => model.descricaoChamado)
         </dt>
         <dd>
@@ -34,18 +55,16 @@
         <dd>
             @Html.DisplayFor(model => model.dataAbertura)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.dataEncerramento)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.dataEncerramento)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.solucaoChamado)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.solucaoChamado)
-        </dd>
+        @if (Model.solucaoChamado != null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.solucaoChamado)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.solucaoChamado)
+            </dd>
+        }
+
         <dt>
             @Html.DisplayNameFor(model => model.servico)
         </dt>

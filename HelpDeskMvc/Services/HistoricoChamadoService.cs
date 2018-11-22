@@ -18,8 +18,13 @@ namespace HelpDeskMvc.Services
             _context = context;
         }
 
-       
+        public List<HistoricoChamado> ListarHistorico(int id)
+        {
+            return _context.HistoricoChamado.Where(x => x.ChamadoId == id).Include(x => x.chamado).ToList();
+        }
 
-        
+
+
+
     }
 }

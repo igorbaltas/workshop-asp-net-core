@@ -1,4 +1,4 @@
-﻿@model HelpDeskMvc.Models.Chamado
+﻿@model HelpDeskMvc.Models.ViewModels.DetalheChamadoViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -11,85 +11,106 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.idChamado)
+            @Html.DisplayNameFor(model => model.chamado.idChamado)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.idChamado)
+            @Html.DisplayFor(model => model.chamado.idChamado)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.status)
+            @Html.DisplayNameFor(model => model.chamado.status)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.status)
+            @Html.DisplayFor(model => model.chamado.status)
         </dd>
         <dt>
             Aberto há:
         </dt>
         <dd>
-            @Model.calcularTempoChamado(Model.dataAbertura).ToString() dias
+            @Model.calcularTempoChamado(Model.chamado.dataAbertura).ToString() dias
         </dd>
 
         <dd>
-            AGUARDANDO ATENDIMENTO ==========>  @Model.AguardandoAtendimento()
+
         </dd>
 
-        @if (Model.dataEncerramento != Convert.ToDateTime("01/01/0001"))
+        @if (Model.chamado.dataEncerramento != Convert.ToDateTime("01/01/0001"))
         {
 
-            @Html.DisplayNameFor(model => model.dataEncerramento)
+            @Html.DisplayNameFor(model => model.chamado.dataEncerramento)
 
 
-            @Html.DisplayFor(model => model.dataEncerramento)
+            @Html.DisplayFor(model => model.chamado.dataEncerramento)
 
 
         }
         <dt>
-            @Html.DisplayNameFor(model => model.descricaoChamado)
+            @Html.DisplayNameFor(model => model.chamado.descricaoChamado)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.descricaoChamado)
+            @Html.DisplayFor(model => model.chamado.descricaoChamado)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.dataAbertura)
+            @Html.DisplayNameFor(model => model.chamado.dataAbertura)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.dataAbertura)
+            @Html.DisplayFor(model => model.chamado.dataAbertura)
         </dd>
-        @if (Model.solucaoChamado != null)
+        @if (Model.chamado.solucaoChamado != null)
         {
             <dt>
-                @Html.DisplayNameFor(model => model.solucaoChamado)
+                @Html.DisplayNameFor(model => model.chamado.solucaoChamado)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.solucaoChamado)
+                @Html.DisplayFor(model => model.chamado.solucaoChamado)
             </dd>
         }
 
         <dt>
-            @Html.DisplayNameFor(model => model.servico)
+            @Html.DisplayNameFor(model => model.chamado.servico)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.servico.dsServico)
+            @Html.DisplayFor(model => model.chamado.servico.dsServico)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.usuario)
+            @Html.DisplayNameFor(model => model.chamado.usuario)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.usuario.loginUsuario)
+            @Html.DisplayFor(model => model.chamado.usuario.loginUsuario)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.tecnico)
+            @Html.DisplayNameFor(model => model.chamado.tecnico)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.tecnico.loginUsuario)
+            @Html.DisplayFor(model => model.chamado.tecnico.loginUsuario)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.departamento)
+            @Html.DisplayNameFor(model => model.chamado.departamento)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.departamento.dsDpto)
+            @Html.DisplayFor(model => model.chamado.departamento.dsDpto)
         </dd>
     </dl>
+
+    @foreach (var item in Model.histChamado)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.usuario.loginUsuario)
+            </td>
+
+
+            <td>
+                @Html.DisplayFor(modelItem => item.dsLog)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dataLog)
+            </td>
+            <td></td>
+        </tr>
+
+
+
+    }
 </div>
 <div>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |

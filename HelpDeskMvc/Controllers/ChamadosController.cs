@@ -7,6 +7,7 @@ using HelpDeskMvc.Models.ViewModels;
 using HelpDeskMvc.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.KeyVault.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace HelpDeskMvc.Controllers
 {
@@ -15,13 +16,15 @@ namespace HelpDeskMvc.Controllers
         private readonly ChamadoService _chamadoService;
         private readonly ServicoService _servicoService;
         private readonly DepartamentoService _departamentoService;
+        private readonly HistoricoChamadoService _historicoChamadoService;
 
 
-        public ChamadosController(ChamadoService chamadoService, ServicoService servicoService, DepartamentoService departamentoService)
+        public ChamadosController(ChamadoService chamadoService, ServicoService servicoService, DepartamentoService departamentoService, HistoricoChamadoService historicoChamadoService)
         {
             _chamadoService = chamadoService;
             _servicoService = servicoService;
             _departamentoService = departamentoService;
+            _historicoChamadoService = historicoChamadoService;
         }
 
         public IActionResult Index(int id, string nomeUsuario)
@@ -49,7 +52,9 @@ namespace HelpDeskMvc.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Chamado chamado)
         {
-            
+            chamado.UsuarioId = (int)HttpContext.Session.GetInt32("id");
+
+
              _chamadoService.AbrirChamado(chamado);
             return RedirectToAction(nameof(Index));
         }
@@ -66,20 +71,23 @@ namespace HelpDeskMvc.Controllers
             return View(result);
         }
 
-        public IActionResult Details(int? id)
+        public IActionResult Details(int id)
         {
-            if (id == null)
+            var historico = _historicoChamadoService.ListarHistorico(id);
+            var chamado = _chamadoService.PesquisarId(id);
+            var viewModel = new DetalheChamadoViewModel { histChamado  = historico, chamado = chamado};
+            /*if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não fornecido" });
-            }
+            }*/
 
-            var chamado =  _chamadoService.PesquisarId(id.Value);
-            if (chamado == null)
+            
+            /*if (chamado == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
-            }
+            }*/
             //chamadoModel.calcularTempoChamado(chamado);
-            return View(chamado);
+            return View(viewModel);
         }
 
        

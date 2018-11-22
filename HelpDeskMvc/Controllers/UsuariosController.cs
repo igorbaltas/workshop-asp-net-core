@@ -92,6 +92,8 @@ namespace HelpDeskMvc.Controllers
            // HelpDeskMvcContext _context = new HelpDeskMvcContext();
             var usuarioLogado = _context.Usuario.SingleOrDefault(x => x.loginUsuario == usuario.loginUsuario && x.senhaUsuario == usuario.senhaUsuario);
 
+            usuario.idUsuario = usuarioLogado.idUsuario;
+
             if (usuarioLogado != null)
             {
                 ViewBag.message = "loggedIn";
@@ -99,6 +101,7 @@ namespace HelpDeskMvc.Controllers
 
                 
                 HttpContext.Session.SetString("usuario", usuario.loginUsuario);
+                
                 HttpContext.Session.SetInt32("id", usuario.idUsuario);
 
                 return RedirectToAction("Index","Usuarios", new {usuario = usuario.nomeUsuario,  id = usuario.idUsuario });
